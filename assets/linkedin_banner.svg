@@ -1,0 +1,58 @@
+<svg width="1584" height="396" viewBox="0 0 1584 396" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d2d4e"/>
+      <stop offset="100%" stop-color="#0a223d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1584" height="396" fill="url(#bg)"/>
+
+  <!-- subtle grid texture, evokes a technical/audit backdrop without literal icons -->
+  <g stroke="#1c3f61" stroke-width="1" opacity="0.5">
+    <line x1="0" y1="99" x2="1584" y2="99"/>
+    <line x1="0" y1="198" x2="1584" y2="198"/>
+    <line x1="0" y1="297" x2="1584" y2="297"/>
+    <line x1="264" y1="0" x2="264" y2="396"/>
+    <line x1="528" y1="0" x2="528" y2="396"/>
+    <line x1="792" y1="0" x2="792" y2="396"/>
+    <line x1="1056" y1="0" x2="1056" y2="396"/>
+    <line x1="1320" y1="0" x2="1320" y2="396"/>
+  </g>
+
+  <!-- classification-style accent bar, echoes the report's cover page -->
+  <rect x="0" y="0" width="1584" height="8" fill="#7a1c1c"/>
+
+  <!-- left accent block -->
+  <rect x="0" y="0" width="6" height="396" fill="#7a1c1c"/>
+
+  <text x="90" y="150" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="700" fill="#ffffff">CyberReport-Pro</text>
+  <text x="90" y="195" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#9fb3c8" letter-spacing="1">DevSecOps &amp; Compliance Automation Lab</text>
+
+  <text x="90" y="260" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#c9d6e3">Mapeo automático de hallazgos técnicos a ENS y RGPD/LOPDGDD</text>
+
+  <!-- three quiet stat tags, no icons/emblems -->
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="90" y="292" width="150" height="34" rx="4" fill="none" stroke="#3a5a7a" stroke-width="1"/>
+    <text x="165" y="314" font-size="14" fill="#c9d6e3" text-anchor="middle">Python · TDD</text>
+
+    <rect x="252" y="292" width="150" height="34" rx="4" fill="none" stroke="#3a5a7a" stroke-width="1"/>
+    <text x="327" y="314" font-size="14" fill="#c9d6e3" text-anchor="middle">21 tests · 95%</text>
+
+    <rect x="414" y="292" width="170" height="34" rx="4" fill="none" stroke="#3a5a7a" stroke-width="1"/>
+    <text x="499" y="314" font-size="14" fill="#c9d6e3" text-anchor="middle">CLI + PDF engine</text>
+  </g>
+
+  <!-- right-side minimal document motif: three stacked bars suggesting a report, no insignia -->
+  <g transform="translate(1300,140)">
+    <rect x="0" y="0" width="170" height="220" rx="6" fill="#ffffff" opacity="0.06"/>
+    <rect x="0" y="0" width="170" height="220" rx="6" fill="none" stroke="#3a5a7a" stroke-width="1.5"/>
+    <rect x="20" y="24" width="130" height="10" rx="2" fill="#7a1c1c"/>
+    <rect x="20" y="50" width="90" height="8" rx="2" fill="#9fb3c8"/>
+    <rect x="20" y="66" width="110" height="8" rx="2" fill="#9fb3c8"/>
+    <rect x="20" y="92" width="130" height="60" rx="3" fill="none" stroke="#3a5a7a" stroke-width="1"/>
+    <rect x="20" y="92" width="98" height="60" fill="#b8541a" opacity="0.55"/>
+    <rect x="20" y="164" width="130" height="8" rx="2" fill="#9fb3c8"/>
+    <rect x="20" y="180" width="80" height="8" rx="2" fill="#9fb3c8"/>
+  </g>
+</svg>

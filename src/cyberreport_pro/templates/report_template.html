@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    @page {
+        size: A4;
+        margin: 2.4cm 1.8cm 2cm 1.8cm;
+        @bottom-center {
+            content: "CyberReport-Pro — Página " counter(page) " de " counter(pages);
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 7.5pt;
+            color: #999999;
+        }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 10pt; color: #1a1a1a; }
+
+    /* Diagonal watermark, repeated on every page via position: fixed
+       (a real WeasyPrint feature — this is what xhtml2pdf could not do). */
+    .watermark {
+        position: fixed;
+        top: 45%;
+        left: -20%;
+        width: 140%;
+        text-align: center;
+        transform: rotate(-32deg);
+        font-size: 78pt;
+        font-weight: 700;
+        color: rgba(13, 45, 78, 0.055);
+        letter-spacing: 6px;
+        z-index: -1;
+    }
+
+    /* ---------- Cover page ---------- */
+    .cover-page { page-break-after: always; padding-top: 20px; }
+    .cover-classification {
+        background-color: #7a1c1c;
+        color: #ffffff;
+        text-align: center;
+        font-weight: bold;
+        font-size: 10pt;
+        padding: 7px 0;
+        letter-spacing: 2px;
+        margin-bottom: 60px;
+        border-radius: 3px;
+    }
+    .cover-title {
+        text-align: center;
+        font-size: 27pt;
+        font-weight: bold;
+        color: #0d2d4e;
+        margin-bottom: 6px;
+    }
+    .cover-subtitle {
+        text-align: center;
+        font-size: 12pt;
+        color: #666666;
+        margin-bottom: 50px;
+    }
+    .cover-metadata {
+        width: 82%;
+        margin: 0 auto 55px auto;
+        border-collapse: collapse;
+    }
+    .cover-metadata-row {
+        display: flex;
+        padding: 9px 4px;
+        border-bottom: 1px solid #e2e2e2;
+        font-size: 10.5pt;
+    }
+    .cover-metadata-row .label { font-weight: bold; color: #444444; width: 35%; }
+    .cover-metadata-row .value { width: 65%; }
+
+    .cover-gauge-label {
+        text-align: center; font-size: 10pt; font-weight: bold; color: #444444;
+        letter-spacing: 1.5px; margin-bottom: 10px;
+    }
+    .risk-gauge-track {
+        width: 78%;
+        margin: 0 auto;
+        height: 22px;
+        background-color: #ececec;
+        border-radius: 11px;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+        overflow: hidden;
+    }
+    .risk-gauge-fill {
+        height: 100%;
+        border-radius: 11px 0 0 11px;
+    }
+    .risk-gauge-caption {
+        text-align: center; font-size: 9pt; color: #777777; margin-top: 8px;
+    }
+    .risk-gauge-score {
+        text-align: center; font-size: 21pt; font-weight: bold; margin-top: 24px;
+    }
+
+    /* ---------- Body pages ---------- */
+    .page-header-bar {
+        background-color: #7a1c1c; color: #ffffff; text-align: center;
+        font-weight: bold; font-size: 9pt; padding: 5px 0;
+        margin-bottom: 20px; letter-spacing: 1px; border-radius: 3px;
+    }
+    h2 {
+        font-size: 13.5pt; color: #0d2d4e; margin-top: 24px;
+        border-left: 4px solid #7a1c1c; padding-left: 10px;
+    }
+    table.risk-summary { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    table.risk-summary th, table.risk-summary td {
+        border: 1px solid #dddddd; padding: 8px 10px; text-align: center; font-size: 9pt;
+    }
+    table.risk-summary th {
+        background-color: #0d2d4e; color: white; border-radius: 0;
+    }
+    .finding-block {
+        border: 1px solid #e0e0e0;
+        border-left: 5px solid #999999;
+        border-radius: 4px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .finding-block.critical { border-left-color: #7a1c1c; }
+    .finding-block.high { border-left-color: #b8541a; }
+    .finding-block.medium { border-left-color: #b89a1a; }
+    .finding-block.low { border-left-color: #4a7a1c; }
+    .finding-block.info { border-left-color: #4a6a8a; }
+    .finding-title { font-size: 12pt; font-weight: bold; margin-bottom: 3px; }
+    .severity-tag {
+        display: inline-block; font-size: 8pt; font-weight: bold; color: white;
+        padding: 2px 9px; border-radius: 10px; margin-left: 8px;
+    }
+    .severity-tag.critical { background-color: #7a1c1c; }
+    .severity-tag.high { background-color: #b8541a; }
+    .severity-tag.medium { background-color: #b89a1a; }
+    .severity-tag.low { background-color: #4a7a1c; }
+    .severity-tag.info { background-color: #4a6a8a; }
+    .legal-box {
+        background-color: #f4f7fa;
+        border: 1px solid #ccdae7;
+        border-radius: 4px;
+        padding: 9px 12px;
+        margin-top: 9px;
+        font-size: 8.8pt;
+    }
+    .legal-box .framework { font-weight: bold; color: #0d2d4e; }
+    .sanction { color: #7a1c1c; font-style: italic; }
+    .footer-note { font-size: 7.5pt; color: #999999; text-align: center; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<div class="watermark">CONFIDENCIAL</div>
+
+{% set score = report.risk_score %}
+{% if score >= 75 %}
+    {% set risk_label = "RIESGO CRÍTICO" %}
+    {% set risk_color = "#7a1c1c" %}
+    {% set risk_gradient = "linear-gradient(90deg, #922222, #7a1c1c)" %}
+{% elif score >= 50 %}
+    {% set risk_label = "RIESGO ALTO" %}
+    {% set risk_color = "#b8541a" %}
+    {% set risk_gradient = "linear-gradient(90deg, #d06a2a, #b8541a)" %}
+{% elif score >= 25 %}
+    {% set risk_label = "RIESGO MEDIO" %}
+    {% set risk_color = "#b89a1a" %}
+    {% set risk_gradient = "linear-gradient(90deg, #d4b52a, #b89a1a)" %}
+{% else %}
+    {% set risk_label = "RIESGO BAJO" %}
+    {% set risk_color = "#4a7a1c" %}
+    {% set risk_gradient = "linear-gradient(90deg, #5c9424, #4a7a1c)" %}
+{% endif %}
+
+<div class="cover-page">
+    <div class="cover-classification">{{ report.metadata.classification }}</div>
+
+    <div class="cover-title">Informe de Seguridad y Cumplimiento</div>
+    <div class="cover-subtitle">Mapeo de hallazgos técnicos a ENS y RGPD/LOPDGDD</div>
+
+    <div class="cover-metadata">
+        <div class="cover-metadata-row"><div class="label">Cliente</div><div class="value">{{ report.metadata.client_name }}</div></div>
+        <div class="cover-metadata-row"><div class="label">Proyecto / Alcance</div><div class="value">{{ report.metadata.project_name }}</div></div>
+        <div class="cover-metadata-row"><div class="label">Autor</div><div class="value">{{ report.metadata.author }}</div></div>
+        <div class="cover-metadata-row"><div class="label">Fecha</div><div class="value">{{ report.metadata.report_date.strftime("%d/%m/%Y") }}</div></div>
+    </div>
+
+    <div class="cover-gauge-label">NIVEL DE RIESGO GLOBAL</div>
+    <div class="risk-gauge-track">
+        <div class="risk-gauge-fill" style="width:{{ score }}%; background:{{ risk_gradient }};"></div>
+    </div>
+    <div class="risk-gauge-score" style="color:{{ risk_color }};">
+        {{ score }}/100 &nbsp;—&nbsp; {{ risk_label }}
+    </div>
+    <div class="risk-gauge-caption">
+        Puntuación calculada a partir de la severidad ponderada de los {{ report.mapped_findings|length }}
+        hallazgo(s) incluidos en este informe.
+    </div>
+</div>
+
+<div class="page-header-bar">{{ report.metadata.classification }}</div>
+
+<h2>Resumen Ejecutivo de Riesgo</h2>
+<table class="risk-summary">
+    <tr>
+        <th>Crítico</th><th>Alto</th><th>Medio</th><th>Bajo</th><th>Informativo</th>
+    </tr>
+    <tr>
+        <td>{{ report.risk_summary.critical }}</td>
+        <td>{{ report.risk_summary.high }}</td>
+        <td>{{ report.risk_summary.medium }}</td>
+        <td>{{ report.risk_summary.low }}</td>
+        <td>{{ report.risk_summary.info }}</td>
+    </tr>
+</table>
+
+<h2>Hallazgos Técnicos y Mapeo Legal</h2>
+
+{% for mf in report.sorted_findings %}
+<div class="finding-block {{ mf.finding.severity.value }}">
+    <div class="finding-title">
+        {{ mf.finding.title }}
+        <span class="severity-tag {{ mf.finding.severity.value }}">{{ mf.finding.severity.value|upper }}</span>
+    </div>
+    <div><strong>Activo afectado:</strong> {{ mf.finding.affected_asset }}</div>
+    <p>{{ mf.finding.description }}</p>
+
+    {% if mf.finding.remediation %}
+    <div><strong>Remediación recomendada:</strong> {{ mf.finding.remediation }}</div>
+    {% endif %}
+
+    {% for mapping in mf.mappings %}
+    <div class="legal-box">
+        <span class="framework">{{ mapping.framework }}</span>
+        — {{ mapping.articles|join(", ") }}
+        <div>{{ mapping.risk_statement }}</div>
+        {% if mapping.sanction_reference %}
+        <div class="sanction">Sanción potencial de referencia: {{ mapping.sanction_reference }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+<div class="footer-note">
+    Documento generado automáticamente por CyberReport-Pro — proyecto de portfolio educativo.
+    Este mapeo legal es una aproximación de estudio y no sustituye un análisis jurídico formal.
+</div>
+
+</body>
+</html>

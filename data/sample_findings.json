@@ -1,0 +1,57 @@
+{
+  "client_name": "Acme Retail S.A.",
+  "project_name": "Auditoría de Seguridad - Plataforma E-commerce (Q3 2026)",
+  "author": "Equipo de Seguridad Ofensiva",
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "SQL Injection en el endpoint de búsqueda de productos",
+      "description": "El parámetro 'q' del endpoint /api/search no sanitiza las entradas antes de componer la consulta SQL, permitiendo la extracción de datos mediante inyección UNION-based.",
+      "severity": "critical",
+      "category": "sql_injection",
+      "affected_asset": "api.acmeretail.com/api/search",
+      "evidence": "El payload 'q=1 UNION SELECT username, password FROM users--' devolvió credenciales en texto plano.",
+      "remediation": "Sustituir la concatenación de strings por prepared statements (parametrización) en toda la capa de acceso a datos."
+    },
+    {
+      "id": "F-002",
+      "title": "Bucket de almacenamiento de copias de seguridad expuesto públicamente",
+      "description": "El bucket 'acme-backups-prod' está configurado con una política de acceso público de lectura, exponiendo volcados de la base de datos.",
+      "severity": "high",
+      "category": "public_storage",
+      "affected_asset": "acme-backups-prod (Cloud Storage)",
+      "evidence": "Listado público confirmado mediante una petición no autenticada al bucket.",
+      "remediation": "Restringir la política del bucket a acceso privado con IAM explícito; habilitar el registro de accesos."
+    },
+    {
+      "id": "F-003",
+      "title": "Uso de MD5 para el almacenamiento de contraseñas",
+      "description": "La tabla de usuarios almacena hashes MD5 sin salt, un algoritmo considerado inseguro para este propósito desde los años 2000.",
+      "severity": "medium",
+      "category": "weak_crypto",
+      "affected_asset": "users.password_hash (base de datos principal)",
+      "evidence": "Análisis del esquema de base de datos en entorno de staging.",
+      "remediation": "Migrar a bcrypt o Argon2id con un factor de coste adecuado, con un plan de rehash progresivo en el próximo inicio de sesión del usuario."
+    },
+    {
+      "id": "F-004",
+      "title": "Clave de API de Stripe presente en repositorio público",
+      "description": "Se encontró una clave de API de producción en un commit de hace dos años, todavía activa y válida.",
+      "severity": "critical",
+      "category": "secrets_exposure",
+      "affected_asset": "github.com/acmeretail/payments-service (historial de commits)",
+      "evidence": "Clave localizada mediante escaneo de entropía (Shannon) + regex de patrón conocido de Stripe.",
+      "remediation": "Revocar la clave de inmediato, reescribir el historial de Git (o considerar el repositorio comprometido) y migrar los secretos a un vault dedicado."
+    },
+    {
+      "id": "F-005",
+      "title": "Cabeceras de seguridad HTTP ausentes",
+      "description": "La aplicación no define Content-Security-Policy, X-Frame-Options ni Strict-Transport-Security.",
+      "severity": "low",
+      "category": "missing_headers",
+      "affected_asset": "app.acmeretail.com",
+      "evidence": "Inspección manual de las respuestas HTTP mediante curl -I.",
+      "remediation": "Añadir cabeceras de seguridad estándar mediante middleware, empezando por HSTS y CSP en modo report-only."
+    }
+  ]
+}

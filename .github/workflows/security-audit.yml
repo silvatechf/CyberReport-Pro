@@ -1,0 +1,22 @@
+name: Security Audit & Quality Gate
+
+on: [push, pull_request]
+
+jobs:
+  bandit-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Security Audit
+        # O exit-code 1 fará o CI falhar se qualquer vulnerabilidade for detectada
+        run: bandit -r src/ -ll

@@ -1,0 +1,10 @@
+services:
+  cyberreport-pro:
+    build: .
+    image: cyberreport-pro:local
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data:ro
+    # Default command generates the bundled sample report.
+    # Override with, e.g.: docker compose run cyberreport-pro list-categories
+    command: ["generate", "data/sample_findings.json", "-o", "output/report.pdf"]
