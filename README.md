@@ -19,9 +19,9 @@ Seguridad (ENS)** and the **RGPD/LOPDGDD**.
 > the codebase, documentation, and CLI are in English.
 
 <p align="center">
-  <img src="./assets/image1.png" width="30%" alt="Imagem 1">
-  <img src="./assets/image2.png" width="30%" alt="Imagem 2">
-  <img src="./assets/image3.png" width="30%" alt="Imagem 3">
+  <img src="./assets/image1.png" width="30%" alt="Report screenshot 1">
+  <img src="./assets/image2.png" width="30%" alt="Report screenshot 2">
+  <img src="./assets/image3.png" width="30%" alt="Report screenshot 3">
 </p>
 
 ## Why I built this
