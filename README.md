@@ -1,11 +1,8 @@
 # 🛡️ CyberReport-Pro
 
-![CI](https://img.shields.io/badge/tests-24%20passing-brightgreen)
-![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
-![python](https://img.shields.io/badge/python-3.10%2B-blue)
-![types](https://img.shields.io/badge/types-mypy%20strict-blue)
-![docker](https://img.shields.io/badge/docker-ready-2496ED)
-![license](https://img.shields.io/badge/license-MIT-lightgrey)
+[![CI](https://github.com/silvatechf/CyberReport-Pro/actions/workflows/ci.yml/badge.svg)](https://github.com/silvatechf/CyberReport-Pro/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 Python automation engine that translates technical security findings
 (SQLi, exposed storage, weak crypto, leaked secrets...) into executive
@@ -16,12 +13,12 @@ Seguridad (ENS)** and the **RGPD/LOPDGDD**.
 
 > Report content and legal mapping text are generated in **Spanish**
 > (the target audience for the compliance frameworks used here), while
-> the codebase, docs and CLI are in English (standart).
+> the codebase, documentation, and CLI are in English.
 
 <p align="center">
-  <img src="./assets/image1.png" width="30%" alt="Imagem 1">
-  <img src="./assets/image2.png" width="30%" alt="Imagem 2">
-  <img src="./assets/image3.png" width="30%" alt="Imagem 3">
+  <img src="./assets/image1.png" width="30%" alt="Report screenshot 1">
+  <img src="./assets/image2.png" width="30%" alt="Report screenshot 2">
+  <img src="./assets/image3.png" width="30%" alt="Report screenshot 3">
 </p>
 
 ## Why I built this
@@ -70,11 +67,24 @@ seeing how separating "business rule" (the legal mapping) from
 
 ## Installation
 
+**Windows PowerShell**
+
+```powershell
+git clone https://github.com/silvatechf/CyberReport-Pro.git
+Set-Location CyberReport-Pro
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e .
+```
+
+**Linux / macOS**
+
 ```bash
-git clone https://github.com/your-username/cyberreport-pro.git
-cd cyberreport-pro
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
-pip install -e .
+git clone https://github.com/silvatechf/CyberReport-Pro.git
+cd CyberReport-Pro
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
 ```
 
 ### Or with Docker (recommended — no local Python setup needed)
@@ -138,7 +148,7 @@ Expected input format (abridged — full example in `data/sample_findings.json`)
 | CLI | `click` | Nicer API than `argparse` for commands with subcommands |
 | Templates | `jinja2` | Keeps report layout separate from Python logic |
 | PDF | `weasyprint` | Renders modern CSS properly (gradients, `border-radius`, repeating watermarks via `position: fixed`, page counters). Switched from an earlier `xhtml2pdf` prototype once its CSS 2.1-era limits started capping report quality — see [CHANGELOG](CHANGELOG.md) |
-| Tests | `pytest` + `pytest-cov` | 24-test suite, 95% coverage |
+| Tests | `pytest` + `pytest-cov` | Automated test suite with coverage reporting |
 | Quality | `ruff`, `mypy`, `bandit` | Linting, static typing, and security analysis |
 | Automation | GitHub Actions | Runs lint + type check + security scan + tests on 3.10/3.11/3.12 on every push |
 | Packaging | Docker + docker-compose | Runs the CLI with zero local Python setup, sidesteps native-dependency issues across OSes |
