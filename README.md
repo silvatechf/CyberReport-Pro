@@ -16,7 +16,7 @@ Seguridad (ENS)** and the **RGPD/LOPDGDD**.
 
 > Report content and legal mapping text are generated in **Spanish**
 > (the target audience for the compliance frameworks used here), while
-> the codebase, docs and CLI are in English (standart).
+> the codebase, documentation, and CLI are in English.
 
 <p align="center">
   <img src="./assets/image1.png" width="30%" alt="Imagem 1">
@@ -71,7 +71,7 @@ seeing how separating "business rule" (the legal mapping) from
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/cyberreport-pro.git
+git clone https://github.com/silvatechf/CyberReport-Pro.git
 cd cyberreport-pro
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
 pip install -e .
