@@ -67,11 +67,24 @@ seeing how separating "business rule" (the legal mapping) from
 
 ## Installation
 
+**Windows PowerShell**
+
+```powershell
+git clone https://github.com/silvatechf/CyberReport-Pro.git
+Set-Location CyberReport-Pro
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e .
+```
+
+**Linux / macOS**
+
 ```bash
 git clone https://github.com/silvatechf/CyberReport-Pro.git
 cd CyberReport-Pro
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
-pip install -e .
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
 ```
 
 ### Or with Docker (recommended — no local Python setup needed)
