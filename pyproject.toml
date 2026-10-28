@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cyberreport-pro"
 version = "0.1.0"
-description = "Motor de automação que traduz achados técnicos de segurança em relatórios executivos mapeados ao ENS e ao RGPD/LOPDGDD."
+description = "Python automation tool that turns technical security findings into executive reports mapped to Spain's ENS and RGPD/LOPDGDD frameworks."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Seu Nome" }]
+authors = [{ name = "Fernando Silva" }]
 keywords = ["security", "compliance", "ens", "rgpd", "devsecops", "reporting"]
 classifiers = [
     "Development Status :: 3 - Alpha",
